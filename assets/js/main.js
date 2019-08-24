@@ -13,9 +13,23 @@
     appId: "1:340764342135:web:e0a78cf7bc2e6d98"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-    var db = firebase.firestore();
-    
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+if (Object.keys(localStorage).length == 0) {
+    if(window.location.href != "file:///D:/HAck/buddyApp/Log%20in.html"){
+        alert('No one is logged in');
+        setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
+}
+}
+else{
+      db.collection("bookings").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            var bookObj=doc.data().formObj
+            var time=bookObj.time
+            var location=bookObj.location
+    });
+});
+}
 
 (function($) {
 
@@ -177,6 +191,8 @@ function verification(){
         var x = document.getElementById("Log In");
         if (user==x.elements[0].value && pswd==x.elements[1].value) {
             console.log("Login Successfull")
+            localStorage.setItem( 'userInfo',JSON.stringify(userObj));
+            window.location.href="HomePageLogin.html"
         } else { 
             console.log("Invalid username or password")
         } 

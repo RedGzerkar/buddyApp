@@ -40,10 +40,16 @@
 							<form id="meetObj" action="/action_page.php" >
                                   Time: <input type="time" name="time" value="13:30"><br>
                                   Meeting Location:<br>
-                                          <input type="radio" name="location" value="a" checked> a<br>
-                                          <input type="radio" name="location" value="b">b<br>
-                                          <input type="radio" name="location" value="c">c<br>
-                              <br>
+                                         <input list="locations" name="location">
+                                              <datalist id="locations">
+                                                <option value="b">
+                                                <option value="c">
+                                                <option value="d">
+                                                <option value="e">
+                                                <option value="f">
+                                              </datalist>
+                                                    <br>
+                                Details: <input type="text" name="details" value=""><br>
                             </form>
                         <button onclick="getMeatObj()">Request</button>
                         <br>

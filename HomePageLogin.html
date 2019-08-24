@@ -13,6 +13,12 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head> 
+    
+    <script src="https://www.gstatic.com/firebasejs/6.4.1/firebase-app.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+            <script src="https://www.gstatic.com/firebasejs/6.4.1/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/6.4.1/firebase-firestore.js"></script>
 	<body class="is-preload">
 
 		<!-- Wrapper -->
@@ -44,7 +50,7 @@
 							<section id="intro" class="main">
                                     <div class="timeline-content js--fadeInLeft" data-sr-id="1" style= "visibility: visible;  -webkit-transform: translateX(0) scale(1); opacity: 1;transform: translateX(0) scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.8s ease-in-out 0s, opacity 0.8s ease-in-out 0s; transition: transform 0.8s ease-in-out 0s, opacity 0.8s ease-in-out 0s; ">
                                             <img src="images/Oval3x.jpg" alt="Avatar" class="avatar">    
-                                        <h2> <b>Sonya</b></h2>
+                                        <h2 id="firstName"> <b>Sonya</b></h2>
                                             <h3 >Bachelor of Marketing</h3>
                                             <p>Looking for another girl to go home with.</p>
                                             <div class="date"><p id="date"></p>
@@ -58,8 +64,6 @@
                                                 </div>
                                             <p class="center"> </p>
                                             <gg class="bnt-more" href="javascript:void(0)">Request A Join</gg>
-
-
                                             </div>
                                            
 							</section>
@@ -74,6 +78,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+            
 
 	</body>
 </html>
