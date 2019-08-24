@@ -49,6 +49,8 @@ function getInfo()
             var detailsToShow = document.createElement('h3')
             detailsToShow.textContent = bookObj.details;
             document.getElementById(idReq).appendChild(detailsToShow);
+            var join = document.createElement("BUTTON");
+            join.setAttribute("id",i);
             i++
     });
 });
