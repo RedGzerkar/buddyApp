@@ -139,9 +139,10 @@
 
 class User {
 
-  constructor(fName,lName,gender,stId,email,pword,vPword,address) {
+  constructor(fName,lName,deg,gender,stId,email,pword,vPword,address) {
       this.fName = fName;
       this.lName = lName;
+      this.deg=deg;
       this.gender = gender;
       this.stId = stId;
       this.email = email;
@@ -164,6 +165,20 @@ function getFormObj() {
     console.log(finObj);
     var db = firebase.firestore();
     db.collection("users").add({
+    formObj
+})
+}
+
+function getMeatObj() {
+    var formObj = {};
+    var inputs = $('#meetObj').serializeArray();
+    $.each(inputs, function (i, input) {
+        formObj[input.name] = input.value;
+    });
+    var finObj = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
+    console.log(finObj);
+    var db = firebase.firestore();
+    db.collection("booking").add({
     formObj
 })
 }
