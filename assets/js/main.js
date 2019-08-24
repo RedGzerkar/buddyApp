@@ -16,7 +16,8 @@
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 if (Object.keys(localStorage).length == 0) {
-    if(window.location.href != "file:///D:/HAck/buddyApp/Log%20in.html"){
+	console.log(pathname);
+	    if(window.location.pathname != "/Log%20in.html"){
         alert('No one is logged in');
         setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
 }
@@ -198,4 +199,19 @@ function verification(){
         } 
     });
 });
+}
+
+function getinfo(){
+
+	var userObj = JSON.parse(localStorage.getItem('userInfo'));
+	var userName=userObj.uName
+	var userSurname = userObj.lname
+	var photo=userObj.photo
+	var userid=userObj.sId
+	var degree = userObj.deg
+	console.log(userName+" "+userSurname+" "+photo+" "+userid+" "+degree)
+				
+    
+
+
 }
