@@ -32,17 +32,16 @@ else{
             var bookingList = document.createElement("div");
             bookingList.setAttribute("id", "bookingNo"+i)
  //         bookingList.setAttribute("onclick", "viewLocation("+i+")")
-            var name = document.createElement('h1')
-            h1.textContent = ;
-            bookingList.innerHTML=
+            var nametoShow = document.createElement('h2')
+            nametoShow.textContent = bookObj.Name;
+            document.getElementById(bookingList).appendChild(nametoShow);
             document.getElementById(bookDiv).appendChild(bookingList);
             i++
-    }
+    
 
     });
 });
 }
-
 (function($) {
 
 	var	$window = $(window),
