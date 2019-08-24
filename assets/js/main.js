@@ -22,7 +22,8 @@ if (Object.keys(localStorage).length == 0) {
         setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
 }
 }
-else if(window.location.pathname == "/HomePageLogin.html"){
+function getInfo()
+    {
             var i=0;
             db.collection("booking").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -30,6 +31,7 @@ else if(window.location.pathname == "/HomePageLogin.html"){
             var bookingList = document.createElement("div");
             var idReq="bookingNo"+i
             bookingList.setAttribute("id", idReq)
+            //var reqDiv=string(reqDiv)
             document.getElementById("bookDiv").appendChild(bookingList);
  //         bookingList.setAttribute("onclick", "viewLocation("+i+")")
             var nametoShow = document.createElement('h2')
@@ -51,6 +53,7 @@ else if(window.location.pathname == "/HomePageLogin.html"){
     });
 });
 }
+
 (function($) {
 
 	var	$window = $(window),
