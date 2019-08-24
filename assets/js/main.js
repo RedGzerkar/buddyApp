@@ -23,10 +23,9 @@ if (Object.keys(localStorage).length == 0) {
 }
 }
 else if(window.location.pathname == "/HomePageLogin.html"){
-      var i=0;
-db.collection("booking").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        var bookObj=doc.data().formObj
+            var i=0;
+            db.collection("booking").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
             var bookObj=doc.data().formObj
             var bookingList = document.createElement("div");
             var idReq="bookingNo"+i
@@ -202,7 +201,7 @@ function getMeatObj() {
     db.collection("booking").add({
     formObj
 })
-    window.location.href="HomePageLogin.html"
+  //  window.location.href="HomePageLogin.html"
 }
 
 function verification(){
