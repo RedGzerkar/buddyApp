@@ -186,6 +186,7 @@ function getFormObj() {
     db.collection("users").add({
     formObj
 })
+setTimeout(function(){ window.location.href="HomePageLogin.html"; }, 3000)
 }
 
 function getMeatObj() {
@@ -201,6 +202,7 @@ function getMeatObj() {
     db.collection("booking").add({
     formObj
 })
+    setTimeout(function(){ window.location.href="HomePageLogin.html"; }, 3000)
   //  window.location.href="HomePageLogin.html"
 }
 
