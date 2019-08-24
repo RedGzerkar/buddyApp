@@ -19,3 +19,23 @@ firebase.initializeApp({
 .catch(function(error) {
     console.error("Error adding document: ", error);
 });
+//         console.log(`${doc.id} => ${doc.data()}`);
+//     });
+// });
+// var docRef = db.collection("users").doc("skOITcpR8amiVwAXPoJs");
+
+// docRef.get().then(function(doc) {
+//     if (doc.exists) {
+//         console.log("Document data:", doc.data());
+//     } else {
+//         // doc.data() will be undefined in this case
+//         console.log("No such document!");
+//     }
+// }).catch(function(error) {
+//     console.log("Error getting document:", error);
+// });
+db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+});

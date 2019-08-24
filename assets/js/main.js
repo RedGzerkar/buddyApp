@@ -14,8 +14,8 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  
-
+    var db = firebase.firestore();
+    
 
 (function($) {
 
@@ -137,21 +137,6 @@
 
 //Classes
 
-class User {
-
-  constructor(fName,lName,uName,deg,gender,stId,email,pword,vPword,address) {
-      this.fName = fName;
-      this.lName = lName;
-      this.uName= uName;
-      this.deg=deg;
-      this.gender = gender;
-      this.stId = stId;
-      this.email = email;
-      this.pword = pword;
-      this.vPword = vPword;
-      this.address = address;
-  }
-}
 
 
 //Code needed to get info from the online form
@@ -163,7 +148,6 @@ function getFormObj() {
         formObj[input.name] = input.value;
     });
     var finObj = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
-    console.log(finObj);
     var db = firebase.firestore();
     db.collection("users").add({
     formObj
@@ -178,19 +162,24 @@ function getMeatObj() {
     });
     var finObj = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
     console.log(finObj);
-    var db = firebase.firestore();
+
     db.collection("booking").add({
     formObj
 })
 }
 
 function verification(){
-    var ref = firebase.database().ref("users");
-    ref.on("value", function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-        var childData = childSnapshot.val();
-        console.log(childData);
-  });
-}); 
-    
+    db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        var userObj=doc.data().formObj
+        var user=userObj.uName
+        var pswd=userObj.inPassword
+        var x = document.getElementById("Log In");
+        if (user==x.elements[0].value && pswd==x.elements[1].value) {
+            console.log("Login Successfull")
+        } else { 
+            console.log("Invalid username or password")
+        } 
+    });
+});
 }
