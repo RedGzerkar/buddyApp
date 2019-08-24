@@ -59,6 +59,8 @@ function getInfo()
             join.onclick = callJavascriptFunction;
             document.getElementById(idReq).appendChild(join);
             i++
+            var hr = document.createElement("hr")
+            document.getElementById(idReq).appendChild(hr);
     });
 });
 }
