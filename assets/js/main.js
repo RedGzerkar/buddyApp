@@ -12,6 +12,7 @@
     messagingSenderId: "340764342135",
     appId: "1:340764342135:web:e0a78cf7bc2e6d98"
   };
+
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -21,6 +22,9 @@ if (Object.keys(localStorage).length == 0) {
         alert('No one is logged in');
         setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
 }
+}
+function callJavascriptFunction(){
+    console.log("fs")
 }
 function getInfo()
     {
@@ -51,6 +55,9 @@ function getInfo()
             document.getElementById(idReq).appendChild(detailsToShow);
             var join = document.createElement("BUTTON");
             join.setAttribute("id",i);
+            join.innerHTML="Join";
+            join.onclick = callJavascriptFunction;
+            document.getElementById(idReq).appendChild(join);
             i++
     });
 });
