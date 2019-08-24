@@ -140,30 +140,13 @@ class User {
 
 
 //Code needed to get info from the online form
-/*function getFormInfo(){
-  var x = document.getElementById("iniForm");
-  var text = "";
-  var i;
-  for (i = 0; i < x.length ;i++) {
-    text += x.elements[i].value +',';
-  }
-   var nUser= new User(text);
-   var str = JSON.stringify(nUser, null, 4); // (Optional) beautiful indented output.
-   console.log(str);    
-}*/
-/*function getFormObj() {
+
+function getFormObj() {
     var formObj = {};
-    var inputs = $('#iniForms').serializeArray();
-    console.log(inputs)
+    var inputs = $('#iniForm').serializeArray();
     $.each(inputs, function (i, input) {
         formObj[input.name] = input.value;
     });
     var str = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
     console.log(str);   
-    //return formObj;
-}*/
-$( "iniForms" ).submit(function( event ) {
-  console.log( $( this ).serializeArray() );
-  event.preventDefault();
-});
-
+}
