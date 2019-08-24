@@ -23,20 +23,32 @@ if (Object.keys(localStorage).length == 0) {
 }
 }
 else{
-      db.collection("bookings").get().then((querySnapshot) => {
-        var i=0;
-        querySnapshot.forEach((doc) => {
+      var i=0;
+db.collection("booking").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        var bookObj=doc.data().formObj
             var bookObj=doc.data().formObj
-            var time=bookObj.time
-            var location=bookObj.location
-// This function takes the location list from local storage and shows it as a list in the html and also adds the function viewlocation on click
             var bookingList = document.createElement("div");
-            bookingList.setAttribute("id", "bookingNo"+i)
+            var idReq="bookingNo"+i
+            bookingList.setAttribute("id", idReq)
+            console.log(document.getElementById(bookDiv))
+            document.getElementById("bookDiv").appendChild(bookingList);
  //         bookingList.setAttribute("onclick", "viewLocation("+i+")")
             var nametoShow = document.createElement('h2')
             nametoShow.textContent = bookObj.Name;
-            document.getElementById(bookingList).appendChild(nametoShow);
-            document.getElementById(bookDiv).appendChild(bookingList);
+            document.getElementById(idReq).appendChild(nametoShow);
+            var timeToShow = document.createElement('h3')
+            timeToShow.textContent = bookObj.time;
+            document.getElementById(idReq).appendChild(timeToShow);
+            var locationToShow = document.createElement('h3')
+            locationToShow.textContent = bookObj.location;
+            document.getElementById(idReq).appendChild(locationToShow);
+            var degreeToShow = document.createElement('h3')
+            degreeToShow.textContent = bookObj.Degree;
+            document.getElementById(idReq).appendChild(degreeToShow);
+            var detailsToShow = document.createElement('h3')
+            detailsToShow.textContent = bookObj.details;
+            document.getElementById(idReq).appendChild(detailsToShow);
             i++
     
 
