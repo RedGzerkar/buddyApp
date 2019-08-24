@@ -201,7 +201,7 @@ function getMeatObj() {
     db.collection("booking").add({
     formObj
 })
-  //  window.location.href="HomePageLogin.html"
+    window.location.href="HomePageLogin.html"
 }
 
 function verification(){
