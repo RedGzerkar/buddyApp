@@ -14,7 +14,7 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-
+  
 
 
 (function($) {
@@ -139,9 +139,10 @@
 
 class User {
 
-  constructor(fName,lName,deg,gender,stId,email,pword,vPword,address) {
+  constructor(fName,lName,uName,deg,gender,stId,email,pword,vPword,address) {
       this.fName = fName;
       this.lName = lName;
+      this.uName= uName;
       this.deg=deg;
       this.gender = gender;
       this.stId = stId;
@@ -181,4 +182,15 @@ function getMeatObj() {
     db.collection("booking").add({
     formObj
 })
+}
+
+function verification(){
+    var ref = firebase.database().ref("users");
+    ref.on("value", function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+        console.log(childData);
+  });
+}); 
+    
 }
