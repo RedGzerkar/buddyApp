@@ -228,27 +228,12 @@ function verification(){
         var pswd=userObj.inPassword
         var x = document.getElementById("Log In");
         if (user==x.elements[0].value && pswd==x.elements[1].value) {
-            console.log("Login Successfull")
+            console.log("Login Successfull");
             localStorage.setItem( 'userInfo',JSON.stringify(userObj));
             window.location.href="HomePageLogin.html"
-        } else { 
+        } else {  
             console.log("Invalid username or password")
         } 
     });
 });
-}
-
-function getinfo(){
-
-	var userObj = JSON.parse(localStorage.getItem('userInfo'));
-	var userName=userObj.uName
-	var userSurname = userObj.lname
-	var photo=userObj.photo
-	var userid=userObj.sId
-	var degree = userObj.deg
-	console.log(userName+" "+userSurname+" "+photo+" "+userid+" "+degree)
-				
-    
-
-
 }

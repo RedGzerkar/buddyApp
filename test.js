@@ -27,23 +27,23 @@ firebase.initializeApp({
 // }).catch(function(error) {
 //     console.log("Error getting document:", error);
 // });
-// db.collection("users").doc("qMy3RpvqvF1zJN4XRQj5").delete().then(function() {
-//     console.log("Document successfully deleted!");
-// }).catch(function(error) {
-//     console.error("Error removing document: ", error);
-// });
-
-db.collection("users").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        var userObj=doc.data().formObj
-        var userName=userObj.uName
-        var userSurname = userObj.lname
-        var photo=userObj.photo
-        var userid=userObj.sId
-        var degree = userObj.deg
-        console.log(userName+" "+userSurname+" "+photo+" "+userid)
-    });
+db.collection("booking").doc("k95gHfg5cbSNdLFusRXB").delete().then(function() {
+    console.log("Document successfully deleted!");
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
 });
+
+// db.collection("users").get().then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//         var userObj=doc.data().formObj
+//         var userName=userObj.uName
+//         var userSurname = userObj.lname
+//         var photo=userObj.photo
+//         var userid=userObj.sId
+//         var degree = userObj.deg
+//         console.log(userName+" "+userSurname+" "+photo+" "+userid)
+//     });
+// });
 
 
 // var userObj=doc.data().formObj

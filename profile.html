@@ -52,27 +52,47 @@
             <section id="intro" class="main">
                 <img src="images/Oval3x.jpg" alt="Avatar" class="avatar">
                 <h2 id="firstName"> <b>
-                        <script>JSON.parse(localStorage.getItem('userInfo')).fname</script>haha</b></h2>
-                <h3>Bachelor of Marketing</h3>
-                <tbody>
-                    <tr>
-                        <td width="50%"><b>Email address</b></td>
-                        <td width="50%">rouqs@mail.ru</td>
-                    </tr>
-                    <tr>
-                        <td width="50%"><b>Posts</b></td>
-                        <td width="50%">0</td>
-                    </tr>
-                    <tr>
-                        <td width="50%"><b>Registered on </b></td>
-                        <td width="50%">Jan 10 2016, 23:37</td>
-                    </tr>
-                    <tr>
-                        <td width="50%"><b>Average posts per day</b></td>
-                        <td width="50%">You've yet to post</td>
-                    </tr>
-                </tbody>
-                <p>Looking for another girl to go home with.</p>
+                    </b></h2>
+                <div class="table-wrapper">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Full name</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).fname+" "+JSON.parse(localStorage.getItem('userInfo')).lname);</script></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).gender);</script></td>
+
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).uName);</script></td>
+
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).email);</script></td>
+
+                            </tr>
+                            <tr>
+                                <td>Degree</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).deg);</script></td>
+
+                            </tr>
+                            <tr>
+                                <td>Student ID</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).sId);</script></td>
+
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td><script>document.write(JSON.parse(localStorage.getItem('userInfo')).address);</script></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="date">
                     <p id="date"></p>
                     <script>
