@@ -121,3 +121,35 @@
 		});
 
 })(jQuery);
+
+//Classes
+
+class User {
+
+  constructor(fName,lName,gender,stId,email,pword,vPword,address) {
+      this.fName = fName;
+      this.lName = lName;
+      this.gender = gender;
+      this.stId = stId;
+      this.email = email;
+      this.pword = pword;
+      this.vPword = vPword;
+      this.address = address;
+  }
+}
+
+
+//Code needed to get info from the online form
+function getFormInfo(){
+  var x = document.getElementById("iniForm");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    text += x.elements[i].value +',';
+  }
+   var nUser= new User(text);
+   var str = JSON.stringify(nUser, null, 4); // (Optional) beautiful indented output.
+   console.log(str);    
+}
+
+
