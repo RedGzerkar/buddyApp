@@ -16,17 +16,29 @@
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 if (Object.keys(localStorage).length == 0) {
-    if(window.location.href != "file:///D:/HAck/buddyApp/Log%20in.html"){
+    if(window.location.href != "../Log%20in.html"){
         alert('No one is logged in');
         setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
 }
 }
 else{
       db.collection("bookings").get().then((querySnapshot) => {
+        var i=0;
         querySnapshot.forEach((doc) => {
             var bookObj=doc.data().formObj
             var time=bookObj.time
             var location=bookObj.location
+// This function takes the location list from local storage and shows it as a list in the html and also adds the function viewlocation on click
+            var bookingList = document.createElement("div");
+            bookingList.setAttribute("id", "bookingNo"+i)
+ //         bookingList.setAttribute("onclick", "viewLocation("+i+")")
+            var name = document.createElement('h1')
+            h1.textContent = ;
+            bookingList.innerHTML=
+            document.getElementById(bookDiv).appendChild(bookingList);
+            i++
+    }
+
     });
 });
 }
@@ -174,12 +186,14 @@ function getMeatObj() {
     $.each(inputs, function (i, input) {
         formObj[input.name] = input.value;
     });
-    var finObj = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
-    console.log(finObj);
-
+    var getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+    formObj['Name']= getUserInfo.fname
+    formObj['Degree']= getUserInfo.deg
+    formObj['hLocation']=getUserInfo.address
     db.collection("booking").add({
     formObj
 })
+    window.location.href="HomePageLogin.html"
 }
 
 function verification(){
