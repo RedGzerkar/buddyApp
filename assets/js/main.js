@@ -3,6 +3,19 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+  var firebaseConfig = {
+    apiKey: "AIzaSyBZWlfdtbjcQhYLIPJw_JAlVY9oKa7BWiw",
+    authDomain: "teamwalk-b716d.firebaseapp.com",
+    databaseURL: "https://teamwalk-b716d.firebaseio.com",
+    projectId: "teamwalk-b716d",
+    storageBucket: "teamwalk-b716d.appspot.com",
+    messagingSenderId: "340764342135",
+    appId: "1:340764342135:web:e0a78cf7bc2e6d98"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
 
 (function($) {
 
@@ -147,6 +160,10 @@ function getFormObj() {
     $.each(inputs, function (i, input) {
         formObj[input.name] = input.value;
     });
-    var str = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
-    console.log(str);   
+    var finObj = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
+    console.log(finObj);
+    var db = firebase.firestore();
+    db.collection("users").add({
+    formObj
+})
 }
