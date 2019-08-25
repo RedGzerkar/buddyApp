@@ -20,7 +20,7 @@ var db = firebase.firestore();
 if (Object.keys(localStorage).length == 0) {
 	    if(window.location.pathname != "/Log%20in.html"){
         alert('No one is logged in');
-        setTimeout(function(){ window.location.href="Log in.html"; }, 30000);
+        setTimeout(function(){ window.location.href="Log in.html"; }, 300000);
 }
 }
 function callJavascriptFunction(iter){
