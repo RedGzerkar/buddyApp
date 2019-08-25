@@ -3676,25 +3676,6 @@ input, select, textarea {
 						}
 
 		}
-		/* Homepage Syntax Begin*/
-		element.style {
-			visibility: visible;
-			-webkit-transform: translateX(0) scale(1);
-			opacity: 1;
-			transform: translateX(0) scale(1);
-			opacity: 1;
-			-webkit-transition: -webkit-transform 0.8s ease-in-out 0s, opacity 0.8s ease-in-out 0s;
-			transition: transform 0.8s ease-in-out 0s, opacity 0.8s ease-in-out 0s;
-		}
-		.date {
-			background: #FF4081;
-			display: inline-block;
-			color: #FFFFFF;
-			padding: 10px;
-			position: absolute;
-			top: 0;
-			right: 0;
-		}
 		
 		.timeline-content {
 			position: relative;
