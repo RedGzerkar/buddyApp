@@ -16,6 +16,7 @@
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
+this.database = firebase.database()
 if (Object.keys(localStorage).length == 0) {
 	console.log(pathname);
 	    if(window.location.pathname != "/Log%20in.html"){
@@ -23,15 +24,19 @@ if (Object.keys(localStorage).length == 0) {
         setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
 }
 }
-function callJavascriptFunction(){
-    console.log("fs")
-}
+function callJavascriptFunction(iter){
+    key=localStorage.getItem("id"+iter)
+    var getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+    var ParticipantsUpdate=document.getElementById("name"+iter).textContent+","+getUserInfo.fname
+    document.getElementById("name"+iter).innerHTML=ParticipantsUpdate
+    
 function getInfo()
     {
             var i=0;
             db.collection("booking").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
             var bookObj=doc.data().formObj
+            localStorage.setItem( 'id'+i, doc.id);
             var bookingList = document.createElement("div");
             var idReq="bookingNo"+i
             bookingList.setAttribute("id", idReq)
@@ -40,6 +45,7 @@ function getInfo()
  //         bookingList.setAttribute("onclick", "viewLocation("+i+")")
             var nametoShow = document.createElement('h2')
             nametoShow.textContent = bookObj.Name;
+            nametoShow.setAttribute("id","name"+i)
             document.getElementById(idReq).appendChild(nametoShow);
             var timeToShow = document.createElement('h3')
             timeToShow.textContent = bookObj.time;
@@ -56,8 +62,8 @@ function getInfo()
             var join = document.createElement("BUTTON");
             join.setAttribute("id",i);
             join.innerHTML="Join";
-            join.onclick = callJavascriptFunction;
             document.getElementById(idReq).appendChild(join);
+            document.getElementById(i).setAttribute( "onClick", "javascript: callJavascriptFunction("+i+")" );
             i++
             var hr = document.createElement("hr")
             document.getElementById(idReq).appendChild(hr);
@@ -213,6 +219,7 @@ function getMeatObj() {
     formObj['Name']= getUserInfo.fname
     formObj['Degree']= getUserInfo.deg
     formObj['hLocation']=getUserInfo.address
+    formObj['Participants']= getUserInfo.fname
     db.collection("booking").add({
     formObj
 })
