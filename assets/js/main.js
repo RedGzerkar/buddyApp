@@ -16,12 +16,11 @@
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
-this.database = firebase.database()
+
 if (Object.keys(localStorage).length == 0) {
-	console.log(pathname);
 	    if(window.location.pathname != "/Log%20in.html"){
         alert('No one is logged in');
-        setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
+        setTimeout(function(){ window.location.href="Log in.html"; }, 30000);
 }
 }
 function callJavascriptFunction(iter){
@@ -29,6 +28,10 @@ function callJavascriptFunction(iter){
     var getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
     var ParticipantsUpdate=document.getElementById("name"+iter).textContent+","+getUserInfo.fname
     document.getElementById("name"+iter).innerHTML=ParticipantsUpdate
+}
+function logOut(){
+    localStorage.clear()
+    window.location.href="index.html"
 }
 function getInfo()
     {
