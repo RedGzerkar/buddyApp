@@ -252,6 +252,42 @@ function verification(){
 // 	  }
 // 	));
 //   }
+function calculateRouteFromAtoB (platform,coords1,coords2) {
+	var router = platform.getRoutingService(),
+	  routeRequestParams = {
+		mode: 'shortest;pedestrian',
+		representation: 'display',
+		waypoint0: coords1, // St Paul's Cathedral
+		waypoint1: coords2,  // Tate Modern
+		routeattributes: 'waypoints,summary,shape,legs',
+		maneuverattributes: 'direction,action'
+	  };
+  
+  
+	router.calculateRoute(
+	  routeRequestParams,
+	  onSuccess,
+	  onError
+	);
+  }
+  function onError(error) {
+	alert('Can\'t reach the remote server');
+  }
+  function onSuccess(result) {
+	var route = result.response.route[0];
+   /*
+	* The styling of the route response on the map is entirely under the developer's control.
+	* A representitive styling can be found the full JS + HTML code of this example
+	* in the functions below:
+	*/
+	addRouteShapeToMap(route);
+	addManueversToMap(route);
+  
+	addWaypointsToPanel(route.waypoint);
+	addManueversToPanel(route);
+	addSummaryToPanel(route.summary);
+	// ... etc.
+  }
   function addDomMarker(map,name,coords) {
 	var outerElement = document.createElement('div'),
 		innerElement = document.createElement('div');
@@ -311,6 +347,14 @@ function verification(){
 	});
 	map.addObject(bearsMarker);
   }
+  
+var coords1={lat:-37.9117629, lng:145.1329382};
+var coords2= {lat:-37.913496,lng:145.124203};
+var coords3={lat:-37.914269, lng:145.132127};
+var coords4={lat:-37.909838, lng:145.132028};
+  var mapContainer = document.getElementById('mapContainer'),
+  routeInstructionsContainer = document.getElementById('panel');
+
   var platform = new H.service.Platform({
 	apikey: 'f44km04S_HNCAVVJGcM8G0eXJ98KqYVbF8flJPzik3g'
   });
@@ -320,7 +364,7 @@ function verification(){
   var map = new H.Map(document.getElementById('mapContainer'),
 	defaultLayers.vector.normal.map, {
 		zoom: 16,
-		center: {lat:-37.9117629, lng:145.1329382},
+		center: coords1,
 	pixelRatio: window.devicePixelRatio || 1
   });
   // add a resize listener to make sure that the map occupies the whole container
@@ -333,23 +377,155 @@ function verification(){
 //   addCircleToMap(map);
   
 // map.addObject(new H.map.Marker({lat:-37.9117629, lng:145.1329382}));
-addDomMarker(map,'A',{lat: -37.9117629, lng:145.1329382});
+addDomMarker(map,'A',coords1);
+addDomMarker(map,'B',coords3);
+addDomMarker(map,'C',coords4);
   // Create the default UI components
-//   var ui = H.ui.UI.createDefault(map, defaultLayers);
+  var ui = H.ui.UI.createDefault(map, defaultLayers);
+  var bubble;
+
+/**
+ * Opens/Closes a infobubble
+ * @param  {H.geo.Point} position     The location on the map.
+ * @param  {String} text              The contents of the infobubble.
+ */
+function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
+function addRouteShapeToMap(route){
+	var lineString = new H.geo.LineString(),
+	  routeShape = route.shape,
+	  polyline;
+  
+	routeShape.forEach(function(point) {
+	  var parts = point.split(',');
+	  lineString.pushLatLngAlt(parts[0], parts[1]);
+	});
+  
+	polyline = new H.map.Polyline(lineString, {
+	  style: {
+		lineWidth: 4,
+		strokeColor: 'rgba(0, 128, 255, 0.7)'
+	  }
+	});
+	// Add the polyline to the map
+	map.addObject(polyline);
+	// And zoom to its bounding rectangle
+	map.getViewModel().setLookAtData({
+	  bounds: polyline.getBoundingBox()
+	});
+  }
+  function addManueversToMap(route){
+	var svgMarkup = '',
+	  dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}}),
+	  group = new  H.map.Group(),
+	  i,
+	  j;
+  
+	// Add a marker for each maneuver
+	for (i = 0;  i < route.leg.length; i += 1) {
+	  for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+		// Get the next maneuver.
+		maneuver = route.leg[i].maneuver[j];
+		// Add a marker to the maneuvers group
+		var marker =  new H.map.Marker({
+		  lat: maneuver.position.latitude,
+		  lng: maneuver.position.longitude} ,
+		  {icon: dotIcon});
+		marker.instruction = maneuver.instruction;
+		group.addObject(marker);
+	  }
+	}
+  
+	group.addEventListener('tap', function (evt) {
+	  map.setCenter(evt.target.getGeometry());
+	  openBubble(
+		 evt.target.getGeometry(), evt.target.instruction);
+	}, false);
+  
+	// Add the maneuvers group to the map
+	map.addObject(group);
+  }
+  function addWaypointsToPanel(waypoints){
+
+
+
+	var nodeH3 = document.createElement('h3'),
+	  waypointLabels = [],
+	  i;
+  
+  
+	 for (i = 0;  i < waypoints.length; i += 1) {
+	  waypointLabels.push(waypoints[i].label)
+	 }
+  
+	 nodeH3.textContent = waypointLabels.join(' - ');
+  
+	routeInstructionsContainer.innerHTML = '';
+	routeInstructionsContainer.appendChild(nodeH3);
+  }
+  function addSummaryToPanel(summary){
+	var summaryDiv = document.createElement('div'),
+	 content = '';
+	 content += 'Total distance: ' + summary.distance  + 'm.';
+	 content += 'Travel Time: ' + summary.travelTime.toMMSS() + ' (in current traffic)';
+  
+  
+	summaryDiv.style.fontSize = 'small';
+	summaryDiv.style.marginLeft ='5%';
+	summaryDiv.style.marginRight ='5%';
+	summaryDiv.innerHTML = content;
+	routeInstructionsContainer.appendChild(summaryDiv);
+  }
+  function addManueversToPanel(route){
+
+
+
+	var nodeOL = document.createElement('ol'),
+	  i,
+	  j;
+  
+	nodeOL.style.fontSize = 'small';
+	nodeOL.style.marginLeft ='5%';
+	nodeOL.style.marginRight ='5%';
+	nodeOL.className = 'directions';
+  
+	   // Add a marker for each maneuver
+	for (i = 0;  i < route.leg.length; i += 1) {
+	  for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+		// Get the next maneuver.
+		maneuver = route.leg[i].maneuver[j];
+  
+		var li = document.createElement('li'),
+		  spanArrow = document.createElement('span'),
+		  spanInstruction = document.createElement('span');
+  
+		spanArrow.className = 'arrow '  + maneuver.action;
+		spanInstruction.innerHTML = maneuver.instruction;
+		li.appendChild(spanArrow);
+		li.appendChild(spanInstruction);
+  
+		nodeOL.appendChild(li);
+	  }
+	}
+  
+	routeInstructionsContainer.appendChild(nodeOL);
+  }
+  Number.prototype.toMMSS = function () {
+	return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
+  }
   
   // Now use the map as required...
- 
-
-
-
-
-
-
+  calculateRouteFromAtoB (platform,coords1,coords2);
+						  
   
-
-
-
-
-// 	var Marker = new H.map.Marker({lat:-37.9117629, lng:145.1329382});
-// map.addObject(Marker);  
-// addCircleToMap(map);  
