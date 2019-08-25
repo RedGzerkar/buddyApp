@@ -237,3 +237,119 @@ function verification(){
     });
 });
 }
+// function addCircleToMap(map){
+// 	map.addObject(new H.map.Circle(
+// 	  // The central point of the circle
+// 	  {lat:-37.9117629, lng:145.1329382},
+// 	  // The radius of the circle in meters
+// 	  500,
+// 	  {
+// 		style: {
+// 		  strokeColor: 'rgba(55, 85, 170, 0.4)', // Color of the perimeter
+// 		  lineWidth: 2,
+// 		  fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
+// 		}
+// 	  }
+// 	));
+//   }
+  function addDomMarker(map,name,coords) {
+	var outerElement = document.createElement('div'),
+		innerElement = document.createElement('div');
+  
+	outerElement.style.userSelect = 'none';
+	outerElement.style.webkitUserSelect = 'none';
+	outerElement.style.msUserSelect = 'none';
+	outerElement.style.mozUserSelect = 'none';
+	outerElement.style.cursor = 'default';
+  
+	innerElement.style.color = 'green';
+	innerElement.style.backgroundColor = 'white';
+	innerElement.style.border = '2px solid black';
+	innerElement.style.font = 'normal 12px arial';
+	innerElement.style.lineHeight = '12px'
+  
+	innerElement.style.paddingTop = '2px';
+	innerElement.style.paddingLeft = '4px';
+	innerElement.style.width = '20px';
+	innerElement.style.height = '20px';
+  
+	// add negative margin to inner element
+	// to move the anchor to center of the div
+	innerElement.style.marginTop = '-10px';
+	innerElement.style.marginLeft = '-10px';
+  
+	outerElement.appendChild(innerElement);
+  
+	// Add text to the DOM element
+	innerElement.innerHTML = name;
+  
+	function changeOpacity(evt) {
+	  evt.target.style.opacity = 0.6;
+	};
+  
+	function changeOpacityToOne(evt) {
+	  evt.target.style.opacity = 1;
+	};
+  
+	//create dom icon and add/remove opacity listeners
+	var domIcon = new H.map.DomIcon(outerElement, {
+	  // the function is called every time marker enters the viewport
+	  onAttach: function(clonedElement, domIcon, domMarker) {
+		clonedElement.addEventListener('mouseover', changeOpacity);
+		clonedElement.addEventListener('mouseout', changeOpacityToOne);
+	  },
+	  // the function is called every time marker leaves the viewport
+	  onDetach: function(clonedElement, domIcon, domMarker) {
+		clonedElement.removeEventListener('mouseover', changeOpacity);
+		clonedElement.removeEventListener('mouseout', changeOpacityToOne);
+	  }
+	});
+  
+	// Marker for Chicago Bears home
+	var bearsMarker = new H.map.DomMarker(coords, {
+	  icon: domIcon
+	});
+	map.addObject(bearsMarker);
+  }
+  var platform = new H.service.Platform({
+	apikey: 'f44km04S_HNCAVVJGcM8G0eXJ98KqYVbF8flJPzik3g'
+  });
+  var defaultLayers = platform.createDefaultLayers();
+  
+  //Step 2: initialize a map - this map is centered over New Delhi
+  var map = new H.Map(document.getElementById('mapContainer'),
+	defaultLayers.vector.normal.map, {
+		zoom: 16,
+		center: {lat:-37.9117629, lng:145.1329382},
+	pixelRatio: window.devicePixelRatio || 1
+  });
+  // add a resize listener to make sure that the map occupies the whole container
+  window.addEventListener('resize', () => map.getViewPort().resize());
+  
+  //Step 3: make the map interactive
+  // MapEvents enables the event system
+  // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+  var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+//   addCircleToMap(map);
+  
+// map.addObject(new H.map.Marker({lat:-37.9117629, lng:145.1329382}));
+addDomMarker(map,'A',{lat: -37.9117629, lng:145.1329382});
+  // Create the default UI components
+//   var ui = H.ui.UI.createDefault(map, defaultLayers);
+  
+  // Now use the map as required...
+ 
+
+
+
+
+
+
+  
+
+
+
+
+// 	var Marker = new H.map.Marker({lat:-37.9117629, lng:145.1329382});
+// map.addObject(Marker);  
+// addCircleToMap(map);  
