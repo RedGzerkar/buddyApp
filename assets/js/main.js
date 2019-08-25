@@ -29,7 +29,7 @@ function callJavascriptFunction(iter){
     var getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
     var ParticipantsUpdate=document.getElementById("name"+iter).textContent+","+getUserInfo.fname
     document.getElementById("name"+iter).innerHTML=ParticipantsUpdate
-    
+}
 function getInfo()
     {
             var i=0;
