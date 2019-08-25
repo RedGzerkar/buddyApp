@@ -16,15 +16,22 @@
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
+
 if (Object.keys(localStorage).length == 0) {
-	console.log(pathname);
 	    if(window.location.pathname != "/Log%20in.html"){
         alert('No one is logged in');
-        setTimeout(function(){ window.location.href="Log in.html"; }, 3000);
+        setTimeout(function(){ window.location.href="Log in.html"; }, 30000);
 }
 }
-function callJavascriptFunction(){
-    console.log("fs")
+function callJavascriptFunction(iter){
+    key=localStorage.getItem("id"+iter)
+    var getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+    var ParticipantsUpdate=document.getElementById("name"+iter).textContent+","+getUserInfo.fname
+    document.getElementById("name"+iter).innerHTML=ParticipantsUpdate
+}
+function logOut(){
+    localStorage.clear()
+    window.location.href="index.html"
 }
 function getInfo()
     {
@@ -32,6 +39,7 @@ function getInfo()
             db.collection("booking").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
             var bookObj=doc.data().formObj
+            localStorage.setItem( 'id'+i, doc.id);
             var bookingList = document.createElement("div");
             var idReq="bookingNo"+i
             bookingList.setAttribute("id", idReq)
@@ -40,6 +48,7 @@ function getInfo()
  //         bookingList.setAttribute("onclick", "viewLocation("+i+")")
             var nametoShow = document.createElement('h2')
             nametoShow.textContent = bookObj.Name;
+            nametoShow.setAttribute("id","name"+i)
             document.getElementById(idReq).appendChild(nametoShow);
             var timeToShow = document.createElement('h3')
             timeToShow.textContent = bookObj.time;
@@ -56,8 +65,8 @@ function getInfo()
             var join = document.createElement("BUTTON");
             join.setAttribute("id",i);
             join.innerHTML="Join";
-            join.onclick = callJavascriptFunction;
             document.getElementById(idReq).appendChild(join);
+            document.getElementById(i).setAttribute( "onClick", "javascript: callJavascriptFunction("+i+")" );
             i++
             var hr = document.createElement("hr")
             document.getElementById(idReq).appendChild(hr);
@@ -213,6 +222,7 @@ function getMeatObj() {
     formObj['Name']= getUserInfo.fname
     formObj['Degree']= getUserInfo.deg
     formObj['hLocation']=getUserInfo.address
+    formObj['Participants']= getUserInfo.fname
     db.collection("booking").add({
     formObj
 })
@@ -237,21 +247,10 @@ function verification(){
     });
 });
 }
-// function addCircleToMap(map){
-// 	map.addObject(new H.map.Circle(
-// 	  // The central point of the circle
-// 	  {lat:-37.9117629, lng:145.1329382},
-// 	  // The radius of the circle in meters
-// 	  500,
-// 	  {
-// 		style: {
-// 		  strokeColor: 'rgba(55, 85, 170, 0.4)', // Color of the perimeter
-// 		  lineWidth: 2,
-// 		  fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
-// 		}
-// 	  }
-// 	));
-//   }
+
+
+  
+
   function addDomMarker(map,name,coords) {
 	var outerElement = document.createElement('div'),
 		innerElement = document.createElement('div');
@@ -305,51 +304,41 @@ function verification(){
 	  }
 	});
   
-	// Marker for Chicago Bears home
+
 	var bearsMarker = new H.map.DomMarker(coords, {
 	  icon: domIcon
 	});
 	map.addObject(bearsMarker);
   }
+  
+var coords1={lat:-37.9117629, lng:145.1329382};
+var coords2= {lat:-37.913496,lng:145.124203};
+var coords3={lat:-37.914269, lng:145.132127};
+var coords4={lat:-37.909838, lng:145.132028};
+var coords5={lat:-37.911578, lng:145.135775};
+  var mapContainer = document.getElementById('mapContainer'),
+  routeInstructionsContainer = document.getElementById('panel');
+
   var platform = new H.service.Platform({
 	apikey: 'f44km04S_HNCAVVJGcM8G0eXJ98KqYVbF8flJPzik3g'
   });
   var defaultLayers = platform.createDefaultLayers();
   
-  //Step 2: initialize a map - this map is centered over New Delhi
+
   var map = new H.Map(document.getElementById('mapContainer'),
 	defaultLayers.vector.normal.map, {
 		zoom: 16,
-		center: {lat:-37.9117629, lng:145.1329382},
+		center: coords1,
 	pixelRatio: window.devicePixelRatio || 1
   });
-  // add a resize listener to make sure that the map occupies the whole container
+
   window.addEventListener('resize', () => map.getViewPort().resize());
   
-  //Step 3: make the map interactive
-  // MapEvents enables the event system
-  // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+
   var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-//   addCircleToMap(map);
-  
-// map.addObject(new H.map.Marker({lat:-37.9117629, lng:145.1329382}));
-addDomMarker(map,'A',{lat: -37.9117629, lng:145.1329382});
-  // Create the default UI components
-//   var ui = H.ui.UI.createDefault(map, defaultLayers);
-  
-  // Now use the map as required...
- 
 
+addDomMarker(map,'A',coords1);
+addDomMarker(map,'B',coords3);
+addDomMarker(map,'C',coords4);
+addDomMarker(map,'D',coords5);
 
-
-
-
-
-  
-
-
-
-
-// 	var Marker = new H.map.Marker({lat:-37.9117629, lng:145.1329382});
-// map.addObject(Marker);  
-// addCircleToMap(map);  
