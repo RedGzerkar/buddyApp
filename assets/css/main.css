@@ -1858,6 +1858,8 @@ input, select, textarea {
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
+		margin:auto;
+  		display:block;
 	}
 
 		input[type="submit"].icon,
@@ -1992,7 +1994,7 @@ input, select, textarea {
 			.button.primary.icon:before {
 				color: #ffffff !important;
 			}
-
+	
 /* Form */
 
 	form {
@@ -3773,7 +3775,13 @@ input, select, textarea {
   .form-container .btn:hover, .open-button:hover {
 	opacity: 1;
   }
-		/* Homepage Syntax Begin*/
+		/* Login Syntax Begin*/
+		body {
+			text-align: center;
+		}
+		form {
+			display: inline-block;
+		}
 
 /* Footer */
 
