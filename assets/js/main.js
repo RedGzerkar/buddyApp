@@ -205,6 +205,7 @@ function getFormObj() {
         formObj[input.name] = input.value;
     });
     var finObj = JSON.stringify(formObj, null, 4); // (Optional) beautiful indented output.
+    localStorage.setItem( 'userInfo',JSON.stringify(formObj));
     var db = firebase.firestore();
     db.collection("users").add({
     formObj
