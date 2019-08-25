@@ -352,6 +352,7 @@ var coords1={lat:-37.9117629, lng:145.1329382};
 var coords2= {lat:-37.913496,lng:145.124203};
 var coords3={lat:-37.914269, lng:145.132127};
 var coords4={lat:-37.909838, lng:145.132028};
+var coords5={lat:-37.911578, lng:145.135775};
   var mapContainer = document.getElementById('mapContainer'),
   routeInstructionsContainer = document.getElementById('panel');
 
@@ -380,6 +381,7 @@ var coords4={lat:-37.909838, lng:145.132028};
 addDomMarker(map,'A',coords1);
 addDomMarker(map,'B',coords3);
 addDomMarker(map,'C',coords4);
+addDomMarker(map,'D',coords5);
   // Create the default UI components
   var ui = H.ui.UI.createDefault(map, defaultLayers);
   var bubble;
